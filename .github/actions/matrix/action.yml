@@ -1,0 +1,16 @@
+name: Test matrix
+description: Test matrix
+inputs:
+  app-name:
+    description: app name
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Echo Common
+      shell: bash
+      run: echo "Common"
+    - name: Echo app name
+      shell: bash
+      run: echo "${{ inputs.app-name }}"
