@@ -11,10 +11,17 @@ safe_execute() {
 }
 
 main() {
-  # build image
-  safe_execute "docker build -f ./apps/app1/Dockerfile -t app1:0.0.1 ."
-  safe_execute "docker image ls"
+  TARGET_APP=(
+    "app1"
+    "app2"
+  )
 
+  for APP in "${TARGET_APP[@]}"; do
+    # build image
+    safe_execute "docker build -f ./apps/$APP/Dockerfile -t $APP:0.0.1 ."
+    safe_execute "docker image ls"
+  done
+  
   echo "Build and push image is completed."
   exit 0
 }
