@@ -14,5 +14,4 @@ jobs:
       - name: Echo Start
         run: echo "Start"
       - name: Run Build and Push
-        shell: bash
-        run: sh ./scripts/build_and_push.sh
+        run: bash ./scripts/build_and_push.sh
