@@ -19,13 +19,15 @@ jobs:
       - name: Set tag if it is main branch
         uses: ./.github/actions/set-calendar-version-tag
         if: github.ref == 'refs/heads/main'
-      - name: Fetch tag name
-        id: fetch-tag-name
-        run: |
-          if [[ "${{ github.ref }}" = "refs/heads/main" ]]; then
-            echo "result=20230928"
-          else
-            echo "result=${{ github.ref_name }}"
-          fi >> $GITHUB_OUTPUT
+      # - name: Fetch tag name
+      #   id: fetch-tag-name
+      #   run: |
+      #     if [[ "${{ github.ref }}" = "refs/heads/main" ]]; then
+      #       echo "result=20230928"
+      #     else
+      #       echo "result=${{ github.ref_name }}"
+      #     fi >> $GITHUB_OUTPUT
+      # - name: Run Build and Push
+      #   run: bash ./scripts/build_and_push.sh ${{ steps.fetch-tag-name.outputs.result }}
       - name: Run Build and Push
-        run: bash ./scripts/build_and_push.sh ${{ steps.fetch-tag-name.outputs.result }}
+        run: bash ./scripts/build_and_push.sh 20230928

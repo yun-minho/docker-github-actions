@@ -4,7 +4,7 @@ TARGET_APP=(
     app2
 )
 
-TAG_NAME=$1
+VERSION=$1
 
 safe_execute() {
   command=$1
@@ -20,8 +20,10 @@ safe_execute() {
 main() {
   for APP in "${TARGET_APP[@]}"; do
     # build image
-    safe_execute "docker build -f ./apps/$APP/Dockerfile -t $APP:$TAG_NAME ."
-    safe_execute "docker image ls"
+    safe_execute "docker build -f ./apps/$APP/Dockerfile -t $APP:$VERSION ."
+
+    # set tag for push
+    # safe_execute "docker tag $APP:$VERSION dwango-docker.jfrog.io/
   done
   
   echo "Build and push image is completed."
