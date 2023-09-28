@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 safe_execute() {
   command=$1
 
