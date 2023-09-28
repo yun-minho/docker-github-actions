@@ -7,5 +7,6 @@ while true; do
   sleep 1
 done
 EOF
+RUN echo "app1"
 
 ENTRYPOINT /app/run.sh

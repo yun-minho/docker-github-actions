@@ -7,19 +7,11 @@ on:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        app-name: ["apple", "banana"]
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v4
-      -
-        name: Echo Start
+      - name: Echo Start
         run: echo "Start"
-      -
-        name: Matrix
-        uses: ./.github/actions/matrix
-        with:
-          app-name: ${{ matrix.app-name }}
+      - name: Run Build and Push
+        run: sh ./scripts/build_and_push.sh
