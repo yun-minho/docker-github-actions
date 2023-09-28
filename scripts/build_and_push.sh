@@ -1,4 +1,11 @@
 #!/bin/sh
+TARGET_APP=(
+    app1 
+    app2
+)
+
+TAG_NAME=$1
+
 safe_execute() {
   command=$1
 
@@ -11,13 +18,6 @@ safe_execute() {
 }
 
 main() {
-  TARGET_APP=(
-    app1 
-    app2
-  )
-
-  TAG_NAME=$1
-
   for APP in "${TARGET_APP[@]}"; do
     # build image
     safe_execute "docker build -f ./apps/$APP/Dockerfile -t $APP:$TAG_NAME ."
