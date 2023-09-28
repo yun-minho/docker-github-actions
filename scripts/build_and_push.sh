@@ -11,17 +11,16 @@ safe_execute() {
 }
 
 main() {
-  # tagname
-  echo $1
-
   TARGET_APP=(
     app1 
     app2
   )
 
+  TAG_NAME=$1
+
   for APP in "${TARGET_APP[@]}"; do
     # build image
-    safe_execute "docker build -f ./apps/$APP/Dockerfile -t $APP:0.0.1 ."
+    safe_execute "docker build -f ./apps/$APP/Dockerfile -t $APP:$TAG_NAME ."
     safe_execute "docker image ls"
   done
   
