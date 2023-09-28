@@ -1,0 +1,45 @@
+name: Set Calendar Version Tag
+description: 現在の日付に基づいたgitのタグを登録する
+
+runs:
+  using: Composite
+  steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0 # fertch all tags and histories
+    - name: Get latest tag
+      id: get-latest-tag
+      shell: bash
+      run: |
+        echo "result=$(git describe --tags | awk -F'-' '{print $1}')" >> $GITHUB_OUTPUT
+    - name: Extract latest tag date
+      id: extract-latest-tag-date
+      shell: bash
+      run: |
+        echo "result=$(echo ${{ steps.get-latest-tag.outputs.result }} | awk -F'.' '{print $1}')" >> $GITHUB_OUTPUT
+    - name: Extract latest tag count
+      id: extract-latest-tag-count
+      shell: bash
+      run: |
+        echo "result=$(echo ${{ steps.get-latest-tag.outputs.result }} | awk -F'.' '{print $2}')" >> $GITHUB_OUTPUT
+    - name: Get current date
+      id: get-current-date
+      shell: bash
+      env:
+        TZ: Asia/Tokyo
+      run: |
+        echo "result=$(echo $(date +'%Y%m%d'))" >> $GITHUB_OUTPUT
+    - name: Create new tag name
+      id: create-new-tag-name
+      shell: bash
+      run: |
+          if [[ "${{ steps.extract-latest-tag-date.outputs.result }}" = "${{ steps.get-current-date.outputs.result }}" ]]; then
+            echo "result=${{ steps.get-current-date.outputs.result }}.$(( ${{ steps.extract-latest-tag-count.outputs.result }} + 1 ))"
+          else
+            echo "result=${{ steps.get-current-date.outputs.result }}"
+          fi >> $GITHUB_OUTPUT
+    - name: Set new tag and push it
+      shell: bash
+      run: |
+        git tag '${{ steps.create-new-tag-name.outputs.result }}'
+        git push origin --tags

@@ -13,5 +13,16 @@ jobs:
         uses: actions/checkout@v4
       - name: Echo Start
         run: echo "Start"
+      - name: Set tag if it is master branch
+        uses: ./.github/actions/set-calendar-version-tag
+        if: github.ref == 'refs/heads/master'
+      - name: Fetch version
+        run: |
+          echo ${{ github.ref }}
+          if [[ "${{ github.ref }}" = "refs/heads/master" ]];
+            echo "20230928"
+          else
+            echo "${{ github.ref_name }}"
+          fi
       - name: Run Build and Push
         run: bash ./scripts/build_and_push.sh
