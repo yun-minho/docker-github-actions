@@ -12,8 +12,8 @@ safe_execute() {
 
 main() {
   TARGET_APP=(
-    "app1"
-    "app2"
+    app1 
+    app2
   )
 
   for APP in "${TARGET_APP[@]}"; do
