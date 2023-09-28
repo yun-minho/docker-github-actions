@@ -23,7 +23,7 @@ main() {
     safe_execute "docker build -f ./apps/$APP/Dockerfile -t $APP:$VERSION ."
 
     # set tag for push
-    # safe_execute "docker tag $APP:$VERSION dwango-docker.jfrog.io/
+    safe_execute "docker tag $APP:$VERSION dwango-docker.jfrog.io/yun/actions-test/$APP:$VERSION"
   done
   
   echo "Build and push image is completed."
