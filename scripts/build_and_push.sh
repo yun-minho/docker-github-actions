@@ -12,7 +12,7 @@ safe_execute() {
 
 main() {
   # tagname
-  echo $0
+  echo $1
 
   TARGET_APP=(
     app1 
