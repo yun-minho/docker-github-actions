@@ -11,6 +11,9 @@ safe_execute() {
 }
 
 main() {
+  # tagname
+  echo $0
+
   TARGET_APP=(
     app1 
     app2
