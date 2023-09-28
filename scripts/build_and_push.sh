@@ -23,7 +23,7 @@ main() {
     safe_execute "docker build -f ./apps/$APP/Dockerfile -t $APP:$VERSION ."
 
     # set tag for push
-    safe_execute "docker tag $APP:$VERSION dwango-docker.jfrog.io/yun/actions-test/$APP:$VERSION"
+    # safe_execute "docker tag $APP:$VERSION dwango-docker.jfrog.io/yun/actions-test/$APP:$VERSION"
 
     # push to artifactory
     safe_execute "docker push dwango-docker.jfrog.io/yun/actions-test/$APP:$VERSION"
