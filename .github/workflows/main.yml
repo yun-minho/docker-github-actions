@@ -27,5 +27,8 @@ jobs:
           else
             echo "${{ github.ref_name }}"
           fi
+      - name: Login to artifactory server
+        run: |
+          docker login --username ${{ secrets.ARTIFACTORY_USERNAME }} --password ${{ secrets.ARTIFACTORY_TOKEN }} ${{ secrets.ARTIFACTORY_PATH }}
       - name: Run Build and Push
         run: bash ./scripts/build_and_push.sh
