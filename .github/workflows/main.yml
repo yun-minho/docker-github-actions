@@ -3,7 +3,7 @@ name: ci
 on:
   push:
     branches:
-      - "main"
+      - "**"
 
 jobs:
   build:
@@ -13,13 +13,13 @@ jobs:
         uses: actions/checkout@v4
       - name: Echo Start
         run: echo "Start"
-      - name: Set tag if it is master branch
+      - name: Set tag if it is main branch
         uses: ./.github/actions/set-calendar-version-tag
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main'
       - name: Fetch version
         run: |
           echo "${{ github.ref }}"
-          if [[ "${{ github.ref }}" = "refs/heads/master" ]]; then
+          if [[ "${{ github.ref }}" = "refs/heads/main" ]]; then
             echo "20230928"
           else
             echo "${{ github.ref_name }}"
