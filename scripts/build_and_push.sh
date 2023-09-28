@@ -18,16 +18,21 @@ safe_execute() {
 }
 
 main() {
+  
+
   for APP in "${TARGET_APP[@]}"; do
     # build image
     safe_execute "docker build -f ./apps/$APP/Dockerfile -t $APP:$VERSION ."
 
     # set tag for push
-    # safe_execute "docker tag $APP:$VERSION dwango-docker.jfrog.io/yun/actions-test/$APP:$VERSION"
+    safe_execute "docker tag $APP:$VERSION dwango-docker.jfrog.io/yun/actions-test/$APP:$VERSION"
 
     # push to artifactory
     safe_execute "docker push dwango-docker.jfrog.io/yun/actions-test/$APP:$VERSION"
   done
+
+  # docker image ls
+  safe_execute "docker image ls"
   
   echo "Build and push image is completed."
   exit 0

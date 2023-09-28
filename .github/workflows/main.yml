@@ -33,4 +33,4 @@ jobs:
       # - name: Run Build and Push
       #   run: bash ./scripts/build_and_push.sh ${{ steps.fetch-tag-name.outputs.result }}
       - name: Run Build and Push
-        run: bash ./scripts/build_and_push.sh 20230928
+        run: bash ./scripts/build_and_push.sh 20230928.1
