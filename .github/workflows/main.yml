@@ -19,16 +19,18 @@ jobs:
       - name: Set tag if it is main branch
         uses: ./.github/actions/set-calendar-version-tag
         if: github.ref == 'refs/heads/main'
-      - name: Fetch version
-        run: |
-          echo "${{ github.ref }}"
-          if [[ "${{ github.ref }}" = "refs/heads/main" ]]; then
-            echo "20230928"
-          else
-            echo "${{ github.ref_name }}"
-          fi
       - name: Login to artifactory server
         run: |
           docker login --username ${{ secrets.ARTIFACTORY_USERNAME }} --password ${{ secrets.ARTIFACTORY_TOKEN }} ${{ secrets.ARTIFACTORY_PATH }}
+      # - name: Fetch tag name
+      #   id: fetch-tag-name
+      #   run: |
+      #     if [[ "${{ github.ref }}" = "refs/heads/main" ]]; then
+      #       echo "result=20230928"
+      #     else
+      #       echo "result=${{ github.ref_name }}"
+      #     fi >> $GITHUB_OUTPUT
+      # - name: Run Build and Push
+      #   run: bash ./scripts/build_and_push.sh ${{ steps.fetch-tag-name.outputs.result }}
       - name: Run Build and Push
-        run: bash ./scripts/build_and_push.sh
+        run: bash ./scripts/build_and_push.sh 20230928
