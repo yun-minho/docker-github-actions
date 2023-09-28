@@ -17,8 +17,9 @@ jobs:
         uses: ./.github/actions/set-calendar-version-tag
         if: github.ref == 'refs/heads/master'
       - name: Fetch version
+        shell: bash
         run: |
-          echo ${{ github.ref }}
+          echo "${{ github.ref }}"
           if [[ "${{ github.ref }}" = "refs/heads/master" ]];
             echo "20230928"
           else
