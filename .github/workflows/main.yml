@@ -19,6 +19,9 @@ jobs:
       - name: Set tag if it is main branch
         uses: ./.github/actions/set-calendar-version-tag
         if: github.ref == 'refs/heads/main'
+      - name: Login to artifactory server
+        run: |
+          docker login --username ${{ secrets.ARTIFACTORY_USERNAME }} --password ${{ secrets.ARTIFACTORY_TOKEN }} ${{ secrets.ARTIFACTORY_PATH }}
       # - name: Fetch tag name
       #   id: fetch-tag-name
       #   run: |
@@ -29,5 +32,8 @@ jobs:
       #     fi >> $GITHUB_OUTPUT
       # - name: Run Build and Push
       #   run: bash ./scripts/build_and_push.sh ${{ steps.fetch-tag-name.outputs.result }}
-      - name: Run Build and Push
-        run: bash ./scripts/build_and_push.sh 20230928
+      # - name: Run Build and Push
+      #   run: bash ./scripts/build_and_push.sh 20230929
+      - name: Check git tag
+        run: |
+          git describe --tags --always --first-parent
