@@ -18,6 +18,8 @@ safe_execute() {
 }
 
 main() {
+  safe_execute "git fetch --tags"
+
   safe_execute "git describe --tags --always --first-parent"
 
   # for APP in "${TARGET_APP[@]}"; do
