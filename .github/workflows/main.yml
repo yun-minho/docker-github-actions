@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # fetch all tags and histories
       - name: Echo Start
         run: echo "Start"
       - name: Set tag if it is main branch
@@ -32,8 +34,5 @@ jobs:
       #     fi >> $GITHUB_OUTPUT
       # - name: Run Build and Push
       #   run: bash ./scripts/build_and_push.sh ${{ steps.fetch-tag-name.outputs.result }}
-      # - name: Run Build and Push
-      #   run: bash ./scripts/build_and_push.sh 20230929
-      - name: Check git tag
-        run: |
-          git describe --tags --always --first-parent
+      - name: Run Build and Push
+        run: bash ./scripts/build_and_push.sh
