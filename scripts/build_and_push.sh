@@ -18,8 +18,6 @@ safe_execute() {
 }
 
 main() {
-  safe_execute "git fetch --tags"
-
   safe_execute "git tag"
 
   safe_execute "git describe --tags --always --first-parent"
